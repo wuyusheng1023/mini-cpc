@@ -4,14 +4,17 @@ from time import sleep
 import json
 import redis
 
-import config
+def get_redis_host_and_port():
+  host = 'localhost'
+  port = 6379
+  return dict(host=host, port=port)
 
 
 def main():
 
   t0 = datetime.now().timestamp()
   counter = 0
-  r = redis.Redis(**config.get_redis_host_and_port())
+  r = redis.Redis(**get_redis_host_and_port())
 
   while True:
     counter += random.randrange(25)
