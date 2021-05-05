@@ -7,6 +7,16 @@ import config
 import services
 
 
+# fake data
+fake_data = {
+  'status': 'on',
+  'saturator_temperature': 50,
+  'condensor_temperature': 20,  
+  'optics_temperature': 50,
+  'flow': 0.1,
+  'liquid_level': 1,
+}
+
 r = redis.Redis(**config.get_redis_host_and_port())
 
 
@@ -21,23 +31,25 @@ def main():
     if m['channel'] == b'counter':
       counts = json.loads(m['data'])['counts']
       # data = instrument.update()
-      data = {}
+      data = fake_data
       data['counts'] = counts
+      data['concentration'] = int(counts / (data['flow'] * 1000 / 60)) # particles/cm3
       print(data)
 
-      services.publish(data)
-      # r.publish('local_web', json.dumps(data))
-      # r.publish('local_database', json.dumps(data))
+      services.publish_to_websockets(data)
+      # services.save_to_database(data)
       # r.publish('aws_iot', json.dumps(data))
 
     # elif m['channel'] == b'commands':
-    #   if json.loads(m['data'])['switch']:
+    #   switch = json.loads(m['data']['switch'])
+    #   if switch == 'on':
     #     instrument.on()
     #   else:
     #     instrument.off()
-        
+    
     # elif m['channel'] == b'settings':
-    #   instrument.reload()
+    #   if json.loads(m['data']['update']) == 'on':
+    #     instrument.reload()
 
 
 if __name__ == '__main__':
