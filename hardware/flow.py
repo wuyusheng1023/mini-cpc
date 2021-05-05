@@ -3,7 +3,7 @@ from smbus2 import SMBus
 from configparser import ConfigParser
 
 
-class FlowSensor():
+class FlowSensor:
 
   def __init__(self):
     self.bus = SMBus(1)

@@ -1,7 +1,7 @@
 from configparser import ConfigParser
 from datetime import datetime
 
-import config
+from hardware import hardware_config as config
 from hardware.temperature import TemperatureSensor
 from hardware.flow import FlowSensor
 from hardware.acuators import Acuator
@@ -11,7 +11,7 @@ from hardware.io import DigitalInput, DigitaolOutput
 settings = ConfigParser().read('settings.ini')['SETTINGS']
 
 
-class Instrument():
+class Instrument:
 
   def __init__(self):
     self.on = True
@@ -45,7 +45,7 @@ class Instrument():
   @property
   def status(self):
     return {
-      'datetime_utc': datetime.utcnow(),
+      'datetime_utc': datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S'),
       'status': 'on' if self.on else 'off',
       'saturator_temperature': self.saturator_temperature_sensor.data,
       'condensor_temperature': self.condensor_temperature_sensor.data,
@@ -69,11 +69,11 @@ class Instrument():
         self.liquid_pump.on()
     return status
 
-    def reload(self):
-      self.saturator_heater.reload()
-      self.condensor_coolor.reload()
-      self.optics_heater.reload()
-      self.flow_sensor.reload()
+  def reload(self):
+    self.saturator_heater.reload()
+    self.condensor_coolor.reload()
+    self.optics_heater.reload()
+    self.flow_sensor.reload()
   
   def on(self):
     self.on = True

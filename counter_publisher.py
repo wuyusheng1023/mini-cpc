@@ -6,6 +6,7 @@ import json
 import redis
 
 import config
+from hardware import hardware_config
 
 
 def main():
@@ -18,7 +19,7 @@ def main():
     counter += 1
 
   GPIO.add_event_detect(
-    config.COUNTER, 
+    hardware_config.COUNTER, 
     GPIO.RISING, 
     callback=counter_plus_one
   )

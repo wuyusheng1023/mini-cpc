@@ -4,7 +4,7 @@ from simple_pid import PID
 from configparser import ConfigParser
 
 
-class Acuator():
+class Acuator:
 
   def __init__(self, name, gpio, pid_params):
     self.on = True

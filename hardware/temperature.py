@@ -2,7 +2,7 @@ from RPi import GPIO
 
 from time import sleep
 
-from .. import config
+from . import hardware_config as config
 
 
 def send_byte(byte):
@@ -32,7 +32,7 @@ def recv_byte():
   return byte
 
 
-class TemperatureSensor():
+class TemperatureSensor:
 
   def __init__(self, gpio):
     self.gpio = gpio

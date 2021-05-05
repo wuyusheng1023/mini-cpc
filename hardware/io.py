@@ -1,7 +1,7 @@
 from RPi import GPIO
 
 
-class DigitalInput():
+class DigitalInput:
 
   def __init__(self, gpio):
     self.gpio = gpio
@@ -11,7 +11,7 @@ class DigitalInput():
     GPIO.input(self.gpio)
 
 
-class DigitalOutput():
+class DigitalOutput:
   def __init__(self, gpio):
     self.gpio = gpio
 
