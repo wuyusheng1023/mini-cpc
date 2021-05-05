@@ -32,6 +32,9 @@ def publish_to_websockets(data):
 # def save_to_database(data):
 #   collection.insert_one(data)
 
+# Read settings
+def read_settings():
+  return ConfigParser().read('settings.ini')['SETTINGS']
 
 # Write to settings
 settings = ConfigParser().read('settings.ini')
