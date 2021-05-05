@@ -11,7 +11,7 @@ r = redis.Redis(**config.get_redis_host_and_port())
 
 def main():
   pubsub = r.pubsub(ignore_subscribe_messages=True)
-  pubsub.subscribe(['counter', 'settings'])
+  pubsub.subscribe(['counter', 'control', 'settings'])
 
   instrument = Instrument()
 
@@ -20,6 +20,8 @@ def main():
       counts = json.loads(m['data'])['counts']
       data = instrument.update()
       data['counts'] = counts
+    elif m['channel'] == b'control':
+      switch = json.loads(m['data'])['switch']
     elif m['channel'] == b'settings':
       instrument.reload()
 
