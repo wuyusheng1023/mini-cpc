@@ -25,8 +25,9 @@ export default function Dashboard() {
   const [running, setRunningg] = useState(false);
   const [warning, setWarning] = useState(false);
   const [error, setError] = useState(false);
-  const [data, setData] = useState()
-  const [datetime,setDatetime] = useState(Date.now())
+  const [data, setData] = useState();
+  const [dataArr, setDataArr] = useState([]);
+  const [datetime,setDatetime] = useState(Date.now());
 
   // client.onopen = () => {
   //   console.log("ws://localhost:8765");
@@ -45,6 +46,16 @@ export default function Dashboard() {
     if ((Date.now() - datetime) > 2000) {
       client = new W3CWebSocket(ws);
       client.onmessage = onMessage;
+    } else {
+      const datetime = new Date();
+      const newData = {...data};
+      newData['datetime'] = datetime;
+      const newDataArr = [...dataArr];
+      newDataArr.push(newData);
+      while ((Date.parse(datetime) - Date.parse(newDataArr[0]['datetime'])) >= 60 * 60 * 1000) {
+        newDataArr.shift();
+      };
+      setDataArr(newDataArr);
     };
   }, 2000);
 
@@ -128,10 +139,7 @@ export default function Dashboard() {
               mini_CPC by University of Helsinki
             </h2>
             :
-            // !data ? null :
-              <>
-                <TimeSeriesChart data={data}/>
-              </>
+            <TimeSeriesChart dataArr={dataArr}/>
         }
       </Col>
     </Row>
