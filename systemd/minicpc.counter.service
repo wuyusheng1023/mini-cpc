@@ -1,0 +1,11 @@
+[Unit]
+Description=mini_CPC counter publisher
+
+[Service]
+User=pi
+WorkingDirectory=/home/pi/mini-cpc/
+ExecStart=/home/pi/mini-cpc/venv/bin/python counter_publisher.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

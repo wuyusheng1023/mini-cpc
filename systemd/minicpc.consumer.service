@@ -1,0 +1,11 @@
+[Unit]
+Description=mini_CPC redis event consumer
+
+[Service]
+User=pi
+WorkingDirectory=/home/pi/mini-cpc/
+ExecStart=/home/pi/mini-cpc/venv/bin/python redis_event_consumer.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

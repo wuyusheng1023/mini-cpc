@@ -22,3 +22,10 @@
 - `sudo apt-get install nodejs npm`
 - `sudo npm install -g npx`
 - `sudo yarn add antd --network-timeout 100000`
+
+## Nginx
+- `sudo apt install nginx`
+- `sudo /etc/init.d/nginx start`
+- `cat /etc/nginx/sites-enabled/default`
+- `sudo cp nginx/default /etc/nginx/sites-enabled/`
+- `sudo /etc/init.d/nginx restart`
