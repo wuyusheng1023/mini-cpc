@@ -13,9 +13,11 @@ import {
 } from '@ant-design/icons';
 
 import TimeSeriesChart from './TimeSeriesChart.jsx';
+import useInterval from '../hooks/useInterval.jsx';
 
 
-const client = new W3CWebSocket("ws://localhost:8765");
+const ws = "ws://localhost:8765"
+let client = new W3CWebSocket(ws);
 
 
 export default function Dashboard() {
@@ -24,16 +26,27 @@ export default function Dashboard() {
   const [warning, setWarning] = useState(false);
   const [error, setError] = useState(false);
   const [data, setData] = useState()
+  const [datetime,setDatetime] = useState(Date.now())
 
-  client.onopen = () => {
-    console.log("ws://localhost:8765");
-  };
+  // client.onopen = () => {
+  //   console.log("ws://localhost:8765");
+  // };
 
-  client.onmessage = message => {
+  const onMessage = message => {
     const data = JSON.parse(message['data'])
     console.log(data);
-    setData(data)
+    setData(data);
+    setDatetime(Date.now())
   };
+
+  client.onmessage = onMessage;
+
+  useInterval(() => {
+    if ((Date.now() - datetime) > 2000) {
+      client = new W3CWebSocket(ws);
+      client.onmessage = onMessage;
+    };
+  }, 2000);
 
   const onChangeRunning = checked => {
     setRunningg(checked);

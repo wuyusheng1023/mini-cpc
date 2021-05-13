@@ -36,9 +36,12 @@ def main():
       data['concentration'] = int(counts / (data['flow'] * 1000 / 60)) # particles/cm3
       print(data)
 
-      services.publish_to_websockets(data)
-      # services.save_to_database(data)
-      # r.publish('aws_iot', json.dumps(data))
+      try:
+        services.publish_to_websockets(data)
+        # services.save_to_database(data)
+        # r.publish('aws_iot', json.dumps(data))
+      except:
+        print('No data published or saved.')
 
     # elif m['channel'] == b'commands':
     #   switch = json.loads(m['data']['switch'])
