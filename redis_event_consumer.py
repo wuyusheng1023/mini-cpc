@@ -33,7 +33,7 @@ def main():
       data = instrument.update()
       # data = fake_data
       data['counts'] = counts
-      data['concentration'] = int(counts / (data['flow'] * 1000 / 60)) # particles/cm3
+      data['concentration'] = int(counts / (data['sample_flow'] * 1000 / 60)) # particles/cm3
       print(data)
 
       try:
@@ -43,16 +43,16 @@ def main():
       except:
         print('No data published or saved.')
 
-    # elif m['channel'] == b'commands':
-    #   switch = json.loads(m['data']['switch'])
-    #   if switch == 'on':
-    #     instrument.on()
-    #   else:
-    #     instrument.off()
+    elif m['channel'] == b'commands':
+      command = json.loads(m['data'])['command']
+      if command == 'on':
+        instrument.start()
+      elif command == 'off':
+        instrument.stop()
     
-    # elif m['channel'] == b'settings':
-    #   if json.loads(m['data']['update']) == 'on':
-    #     instrument.reload()
+    elif m['channel'] == b'settings':
+      if json.loads(m['data'])['update'] == 'on':
+        instrument.reload()
 
 
 if __name__ == '__main__':

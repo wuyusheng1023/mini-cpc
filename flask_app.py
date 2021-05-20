@@ -24,7 +24,7 @@ def get_settings():
 def commmand():
   try:
     data = request.get_json()
-    r.publish('commands', data)
+    r.publish('commands', json.dumps({'command': data}))
     return {'message': f'command: {data}'}
   except:
     return {'message': 'a command error'}

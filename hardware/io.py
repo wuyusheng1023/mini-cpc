@@ -15,8 +15,8 @@ class DigitalOutput:
   def __init__(self, gpio):
     self.gpio = gpio
 
-  def on(self):
+  def start(self):
     GPIO.output(self.gpio, GPIO.HIGH)
   
-  def off(self):
+  def stop(self):
     GPIO.output(self.gpio, GPIO.LOW)

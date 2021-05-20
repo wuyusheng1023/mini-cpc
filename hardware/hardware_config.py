@@ -57,47 +57,41 @@ GPIO.setup(GPIO_CONDENSOR_COOLOR, GPIO.OUT)  # output, cooler
 GPIO.setup(GPIO_OPTICS_HEATER, GPIO.OUT)  # output, saturator heater
 GPIO.setup(GPIO_AIR_PUMP, GPIO.OUT)  # output
 GPIO.setup(GPIO_LIQUID_PUMP, GPIO.OUT)  # output
-# saturator temperature ADC Chip Select pin
-GPIO.setup(GPIO_SATURATOR_TEMPERATURE, GPIO.OUT)
-# condenser temperature ADC Chip Select pin
-GPIO.setup(GPIO_CONDENSOR_TEMPERATURE, GPIO.OUT)
-# OPC temperature ADC Chip Select pin
-GPIO.setup(GPIO_OPTICS_TEMPERATURE, GPIO.OUT)
+GPIO.setup(GPIO_SATURATOR_TEMPERATURE, GPIO.OUT)  # saturator temperature ADC Chip Select pin
+GPIO.setup(GPIO_CONDENSOR_TEMPERATURE, GPIO.OUT)  # condenser temperature ADC Chip Select pin
+GPIO.setup(GPIO_OPTICS_TEMPERATURE, GPIO.OUT)  # OPC temperature ADC Chip Select pin
 GPIO.setup(GPIO_MISO, GPIO.IN)  # define MISO-pin for SPI communication
 GPIO.setup(GPIO_MOSI, GPIO.OUT)  # define MOSI-pin for SPI communication
 GPIO.setup(GPIO_CLK, GPIO.OUT)  # define CLK-pin for SPI communication
 
-# set chip select pin to high according to datasheet
-GPIO.output(GPIO_SATURATOR_TEMPERATURE, GPIO.HIGH)
-# set chip select pin to high according to datasheet
-GPIO.output(GPIO_CONDENSOR_TEMPERATURE, GPIO.HIGH)
-# set chip select pin to high according to datasheet
-GPIO.output(GPIO_OPTICS_TEMPERATURE, GPIO.HIGH)
+GPIO.output(GPIO_SATURATOR_TEMPERATURE, GPIO.HIGH)  # set chip select pin to high according to datasheet
+GPIO.output(GPIO_CONDENSOR_TEMPERATURE, GPIO.HIGH)  # set chip select pin to high according to datasheet
+GPIO.output(GPIO_OPTICS_TEMPERATURE, GPIO.HIGH)  # set chip select pin to high according to datasheet
 GPIO.output(GPIO_MOSI, GPIO.LOW)  # set set mosi low
 GPIO.output(GPIO_CLK, GPIO.LOW)  # set serial clock low
 
 # PID parameters
 SATURATOP_PID = {
-    'P': 1,
-    'I': 1,
-    'D': 1,
+    'P': 50,
+    'I': 0,
+    'D': 0,
     'FREQUENCY': 100,
 }
 CONDENSOR_PID = {
-    'P': 1,
-    'I': 1,
-    'D': 1,
+    'P': 100,
+    'I': 0,
+    'D': 0,
     'FREQUENCY': 100,
 }
 OPTICS_PID = {
-    'P': 1,
-    'I': 1,
-    'D': 1,
+    'P': 50,
+    'I': 0,
+    'D': 0,
     'FREQUENCY': 10,
 }
 AIR_PUMP_PID = {
-    'P': 1,
-    'I': 1,
-    'D': 1,
+    'P': 300,
+    'I': 10,
+    'D': 0.1,
     'FREQUENCY': 15000,
 }
