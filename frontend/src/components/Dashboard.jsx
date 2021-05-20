@@ -131,7 +131,7 @@ export default function Dashboard() {
                         data['saturator_temperature'].toFixed(2),
                         data['condensor_temperature'].toFixed(2),
                         data['optics_temperature'].toFixed(2),
-                        data['flow'].toFixed(2),
+                        data['sample_flow'].toFixed(2),
                       ]}
                       renderItem={item => (<List.Item>{item}</List.Item>)}
                     />
