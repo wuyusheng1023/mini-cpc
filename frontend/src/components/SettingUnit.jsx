@@ -18,6 +18,10 @@ export default function SettingUnit({
   const [value, setValue] = useState(defaultValue)
 
   useEffect(() => {
+    setValue(defaultValue);
+  }, [defaultValue])
+
+  useEffect(() => {
     onChange(value);
   }, [value])
 
