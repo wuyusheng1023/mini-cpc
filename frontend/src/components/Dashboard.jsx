@@ -22,12 +22,27 @@ let client = new W3CWebSocket(ws);
 
 export default function Dashboard() {
  
-  const [running, setRunningg] = useState(false);
+  const [running, setRunning] = useState(false);
   const [warning, setWarning] = useState(false);
   const [error, setError] = useState(false);
   const [data, setData] = useState();
   const [dataArr, setDataArr] = useState([]);
   const [datetime,setDatetime] = useState(Date.now());
+
+  useEffect(() => {
+    const data = running ? 'on' : 'off';
+    fetch('localhost/api/command', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain',
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: JSON.stringify(data),
+    })
+      .then(res => res.json())
+      .then(res => console.log('Post res:', res))
+      .catch(console.error);
+  }, [running])
 
   // client.onopen = () => {
   //   console.log("ws://localhost:8765");
@@ -60,15 +75,19 @@ export default function Dashboard() {
   }, 2000);
 
   const onChangeRunning = checked => {
-    setRunningg(checked);
+    setRunning(checked);
   };
 
   return (
     <Row>
       <Col span={8} offset={0}>
 
-        <Switch style={{ margin:5 }} onChange={onChangeRunning}/>
-
+        <Switch
+          style={{ margin: 5 }}
+          defaultChecked={true}
+          onChange={onChangeRunning}
+        />
+        
         {
           !running ? null :
             error ? 

@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+
 import Tabs from 'antd/lib/tabs';
 
 import Dashboard from './Dashboard.jsx';
+import SettingPanel from './SettingPanel.jsx';
+
 
 const { TabPane } = Tabs;
 
@@ -15,7 +18,11 @@ export default function TabFrame() {
       </TabPane>
 
       <TabPane tab="Setting" key="2">
-        2
+        <SettingPanel />
+      </TabPane>
+
+      <TabPane tab="Data" key="3">
+        3
       </TabPane>
     </Tabs>
   );
