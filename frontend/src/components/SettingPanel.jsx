@@ -28,12 +28,14 @@ export default function SettingPanel() {
     setConTDefault(settings['condensor_temperature']);
     setOptTDefault(settings['optics_temperature']);
     setFlowDefault(settings['sample_flow']);
+    return settings;
   };
 
   useEffect( () => {
     fetch(urlSettings)
       .then(res => res.json())
       .then(setAll)
+      .then(console.log)
       .catch(console.error);
   }, []);
 
