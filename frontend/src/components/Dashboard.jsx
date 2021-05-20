@@ -31,7 +31,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     const data = running ? 'on' : 'off';
-    fetch('localhost/api/command', {
+    fetch('http://localhost/api/command', {
       method: 'POST',
       headers: {
         'Accept': 'application/json, text/plain',
@@ -127,7 +127,7 @@ export default function Dashboard() {
                         data['saturator_temperature'].toFixed(2),
                         data['condensor_temperature'].toFixed(2),
                         data['optics_temperature'].toFixed(2),
-                        data['flow'].toFixed(1),
+                        data['flow'].toFixed(2),
                       ]}
                       renderItem={item => (<List.Item>{item}</List.Item>)}
                     />

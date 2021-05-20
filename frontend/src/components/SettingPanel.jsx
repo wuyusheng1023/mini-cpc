@@ -25,7 +25,7 @@ export default function SettingPanel() {
   };
 
   useEffect(() => {
-    fetch('localhost/api/settings')
+    fetch('http://localhost/api/settings')
       .then(res => res.json())
       .then(setAll)
       .catch(console.error);
@@ -54,7 +54,7 @@ export default function SettingPanel() {
       'optics_temperature': optT,
       'flow_coef': flow,
     };
-    fetch('localhost/api/set', {
+    fetch('http://localhost/api/set', {
       method: 'POST',
       headers: {
         'Accept': 'application/json, text/plain',
