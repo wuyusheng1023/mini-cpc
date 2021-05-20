@@ -8,6 +8,12 @@ import SettingUnit from './SettingUnit.jsx';
 
 
 export default function SettingPanel() {
+  
+  const hostname = window.location.hostname;
+  const port = window.location.port;
+  const urlSettings = `http://${hostname}:${port}/api/settings`;
+  const urlSet = `http://${hostname}:${port}/api/set`;
+
   const [satTDefault, setSatTDefault] = useState();
   const [conTDefault, setConTDefault] = useState();
   const [optTDefault, setOptTDefault] = useState();
@@ -24,12 +30,12 @@ export default function SettingPanel() {
     setFlowDefault(settings['flow_coef']);
   };
 
-  useEffect(() => {
-    fetch('http://localhost/api/settings')
+  useEffect( () => {
+    fetch(urlSettings)
       .then(res => res.json())
       .then(setAll)
       .catch(console.error);
-  }, [])
+  }, []);
 
   const onChangeSat = value => {
     setSatT(value);
@@ -54,7 +60,7 @@ export default function SettingPanel() {
       'optics_temperature': optT,
       'flow_coef': flow,
     };
-    fetch('http://localhost/api/set', {
+    fetch(urlSet, {
       method: 'POST',
       headers: {
         'Accept': 'application/json, text/plain',

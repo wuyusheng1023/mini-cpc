@@ -21,7 +21,11 @@ let client = new W3CWebSocket(ws);
 
 
 export default function Dashboard() {
- 
+
+  const hostname = window.location.hostname;
+  const port = window.location.port;
+  const urlCommand = `http://${hostname}:${port}/api/command`;
+
   const [running, setRunning] = useState(true);
   const [warning, setWarning] = useState(false);
   const [error, setError] = useState(false);
@@ -31,7 +35,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     const data = running ? 'on' : 'off';
-    fetch('http://localhost/api/command', {
+    fetch(urlCommand, {
       method: 'POST',
       headers: {
         'Accept': 'application/json, text/plain',
