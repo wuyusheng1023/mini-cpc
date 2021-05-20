@@ -128,10 +128,10 @@ export default function Dashboard() {
                     <List
                       itemLayout="horizontal"
                       dataSource={[
-                        data['saturator_temperature'].toFixed(2),
-                        data['condensor_temperature'].toFixed(2),
-                        data['optics_temperature'].toFixed(2),
-                        data['sample_flow'].toFixed(2),
+                        parseFloat(data['saturator_temperature']).toFixed(2),
+                        parseFloat(data['condensor_temperature']).toFixed(2),
+                        parseFloat(data['optics_temperature']).toFixed(2),
+                        parseFloat(data['sample_flow']).toFixed(2),
                       ]}
                       renderItem={item => (<List.Item>{item}</List.Item>)}
                     />
