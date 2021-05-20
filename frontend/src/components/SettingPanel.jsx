@@ -27,7 +27,7 @@ export default function SettingPanel() {
     setSatTDefault(settings['saturator_temperature']);
     setConTDefault(settings['condensor_temperature']);
     setOptTDefault(settings['optics_temperature']);
-    setFlowDefault(settings['flow_coef']);
+    setFlowDefault(settings['sample_flow']);
   };
 
   useEffect( () => {
@@ -58,7 +58,7 @@ export default function SettingPanel() {
       'saturator_temperature': satT,
       'condensor_temperature': conT,
       'optics_temperature': optT,
-      'flow_coef': flow,
+      'sample_flow': flow,
     };
     fetch(urlSet, {
       method: 'POST',
