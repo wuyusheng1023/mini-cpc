@@ -5,10 +5,7 @@ from hardware import hardware_config as config
 from hardware.temperature import TemperatureSensor
 from hardware.flow import FlowSensor
 from hardware.acuators import Acuator
-from hardware.io import DigitalInput, DigitaolOutput
-
-
-settings = ConfigParser().read('settings.ini')['SETTINGS']
+from hardware.io import DigitalInput, DigitalOutput
 
 
 class Instrument:
@@ -40,7 +37,7 @@ class Instrument:
       gpio=config.GPIO_AIR_PUMP,
       pid_params=config.AIR_PUMP_PID,
     )
-    self.liquid_pump = DigitaolOutput(config.GPIO_LIQUID_PUMP)
+    self.liquid_pump = DigitalOutput(config.GPIO_LIQUID_PUMP)
 
   @property
   def status(self):

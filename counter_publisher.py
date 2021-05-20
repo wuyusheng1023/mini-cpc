@@ -9,22 +9,25 @@ import config
 from hardware import hardware_config
 
 
+counter = 0
+r = redis.Redis(**config.get_redis_host_and_port())
+
+def counter_plus_one(_):
+  global counter
+  counter += 1
+
+GPIO.add_event_detect(
+  hardware_config.GPIO_OPC, 
+  GPIO.RISING, 
+  callback=counter_plus_one
+)
+
+
 def main():
 
   t0 = datetime.now().timestamp()
-  counter = 0
-  r = redis.Redis(**config.get_redis_host_and_port())
-
-  def counter_plus_one():
-    counter += 1
-
-  GPIO.add_event_detect(
-    hardware_config.COUNTER, 
-    GPIO.RISING, 
-    callback=counter_plus_one
-  )
-  
   while True:
+    global counter
     counts = counter
     t1 = datetime.now().timestamp()
     if int(t1) > int(t0):

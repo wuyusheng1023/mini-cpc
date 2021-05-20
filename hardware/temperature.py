@@ -39,7 +39,7 @@ class TemperatureSensor:
     write_register(gpio)
     sleep(0.1)
 
-  def read_register(self):
+  def read_registers(self):
     out = []
     GPIO.output(self.gpio, GPIO.LOW)
     send_byte(0)

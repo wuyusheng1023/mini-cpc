@@ -4,7 +4,7 @@ Description=mini_CPC flask server
 [Service]
 User=pi
 WorkingDirectory=/home/pi/mini-cpc/
-Environment="Flask_APP=flask_app"
+Environment="FLASK_APP=flask_app"
 ExecStart=/home/pi/mini-cpc/venv/bin/python -m flask run
 Restart=always
 

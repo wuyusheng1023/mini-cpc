@@ -4,12 +4,16 @@ from simple_pid import PID
 from configparser import ConfigParser
 
 
+config = ConfigParser()
+config.read('settings.ini')
+
+
 class Acuator:
 
   def __init__(self, name, gpio, pid_params):
     self.on = True
     self.name = name
-    settings = ConfigParser().read('settings.ini')['SETTINGS']
+    settings = config['SETTINGS']
     self.setpoint = float(settings[self.name.lower()])
     self.pid = PID(
       pid_params['P'],
@@ -29,10 +33,10 @@ class Acuator:
       duty_cycle *= 1
     else:
       duty_cycle = 0
-    self.pwm(duty_cycle)
+    self.pwm.ChangeDutyCycle(duty_cycle)
 
   def reload(self):
-    settings = ConfigParser().read('settings.ini')['SETTINGS']
+    settings = config['SETTINGS']
     self.setpoint = float(settings[self.name.lower()])
   
   def on(self):

@@ -81,19 +81,23 @@ SATURATOP_PID = {
     'P': 1,
     'I': 1,
     'D': 1,
+    'FREQUENCY': 100,
 }
 CONDENSOR_PID = {
     'P': 1,
     'I': 1,
     'D': 1,
+    'FREQUENCY': 100,
 }
 OPTICS_PID = {
     'P': 1,
     'I': 1,
     'D': 1,
+    'FREQUENCY': 10,
 }
 AIR_PUMP_PID = {
     'P': 1,
     'I': 1,
     'D': 1,
+    'FREQUENCY': 15000,
 }

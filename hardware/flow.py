@@ -3,11 +3,15 @@ from smbus2 import SMBus
 from configparser import ConfigParser
 
 
+config = ConfigParser()
+config.read('settings.ini')
+
+
 class FlowSensor:
 
   def __init__(self):
     self.bus = SMBus(1)
-    self.coef = float(ConfigParser().read('settings.ini')['SETTINGS']['flow_coef'])
+    self.coef = 1
 
   @property
   def data(self):
@@ -16,4 +20,4 @@ class FlowSensor:
     return flow
   
   def reload(self):
-    self.coef = ConfigParser().read('settings.ini')['SETTINGS']['flow_coef']
+    self.coef = config['SETTINGS']['flow_coef']

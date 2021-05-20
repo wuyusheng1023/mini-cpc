@@ -3,19 +3,19 @@ import json
 
 import config
 
-# from instrument import Instrument
+from instrument import Instrument
 import services
 
 
 # fake data
-fake_data = {
-  'status': 'on',
-  'saturator_temperature': 50,
-  'condensor_temperature': 20,  
-  'optics_temperature': 50,
-  'flow': 0.1,
-  'liquid_level': 1,
-}
+# fake_data = {
+#   'status': 'on',
+#   'saturator_temperature': 50,
+#   'condensor_temperature': 20,  
+#   'optics_temperature': 50,
+#   'flow': 0.1,
+#   'liquid_level': 1,
+# }
 
 r = redis.Redis(**config.get_redis_host_and_port())
 
@@ -24,14 +24,14 @@ def main():
   pubsub = r.pubsub(ignore_subscribe_messages=True)
   pubsub.subscribe(['counter', 'commands', 'settings'])
 
-  # instrument = Instrument()
+  instrument = Instrument()
 
   for m in pubsub.listen():
 
     if m['channel'] == b'counter':
       counts = json.loads(m['data'])['counts']
-      # data = instrument.update()
-      data = fake_data
+      data = instrument.update()
+      # data = fake_data
       data['counts'] = counts
       data['concentration'] = int(counts / (data['flow'] * 1000 / 60)) # particles/cm3
       print(data)
