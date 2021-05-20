@@ -13,18 +13,30 @@ app = Flask(__name__)
 
 @app.route('/api/settings')
 def get_settings():
-  settings = services.read_settings()
-  return settings
+  try:
+    settings = services.read_settings()
+    return settings
+  except:
+    return {'message': 'get settings error'}
 
 
 @app.route('/api/command', methods=['POST'])
 def commmand():
-  data = request.get_json()
-  r.publish('commands', data)
+  try:
+    data = request.get_json()
+    r.publish('commands', data)
+    return {'message': f'command: {data}'}
+  except:
+    return {'message': 'a command error'}
 
 
 @app.route('/api/set', methods=['POST'])
 def update_settings():
-  data = request.get_json()
-  services.update_settings_file(data)
-  r.publish('settings', json.dumps({'update': 'on'}))
+  try:
+    data = request.get_json()
+    services.update_settings_file(data)
+    r.publish('settings', json.dumps({'update': 'on'}))
+    return {'message': f'settings: {data}'} 
+  except:
+    print('error')
+    return {'message': 'set settings error'}

@@ -12,6 +12,7 @@ host = config.get_websockets_host_and_port()['host']
 port = config.get_websockets_host_and_port()['port']
 uri = f'ws://{host}:{port}'
 
+
 async def _publish(data):
   async with websockets.connect(uri) as websocket:
     data = json.dumps(data)
@@ -34,13 +35,17 @@ def publish_to_websockets(data):
 
 # Read settings
 def read_settings():
-  return ConfigParser().read('settings.ini')['SETTINGS']
-
-# Write to settings
-settings = ConfigParser().read('settings.ini')
+  settings = ConfigParser()
+  settings.read('settings.ini')
+  data = dict(settings['SETTINGS'])
+  data = {k: float(v) for k, v in data.items()}
+  return data
 
 def update_settings_file(data):
-  for key, value in data:
-    settings.set('SETTINGS', key, value)
+  settings = ConfigParser()
+  settings.read('settings.ini')
+  for key, value in data.items():
+    print(key, value)
+    settings.set('SETTINGS', key, str(value))
   with open('settings.ini', 'w') as file:
     settings.write(file)
