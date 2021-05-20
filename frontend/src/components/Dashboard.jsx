@@ -22,7 +22,7 @@ let client = new W3CWebSocket(ws);
 
 export default function Dashboard() {
  
-  const [running, setRunning] = useState(false);
+  const [running, setRunning] = useState(true);
   const [warning, setWarning] = useState(false);
   const [error, setError] = useState(false);
   const [data, setData] = useState();
